@@ -1,16 +1,17 @@
 package message
 
 type Message struct {
-	RoomId int
+	RoomId  int
+	Name    string
 	Message string
-	Date string
+	Date    string
 }
 
-func NewMessage(roomId int, message, date string) *Message {
+func NewMessage(roomId int, name, message, date string) *Message {
 	return &Message{
-		RoomId: roomId,
+		RoomId:  roomId,
+		Name:    name,
 		Message: message,
-		Date: date,
+		Date:    date,
 	}
 }
-
