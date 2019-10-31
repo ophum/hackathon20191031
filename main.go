@@ -9,26 +9,23 @@ var rooms []room.Room
 
 func sampleMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-			c.Set("rooms", rooms)
-			c.Next()
+		c.Set("rooms", rooms)
+		c.Next()
 	}
 }
 
 func Index(c *gin.Context) {
-	rooms, _ := c.Get("rooms")
-
-	c.HTML(200, "index.html", gin.H{"rooms" : rooms})
+	c.HTML(200, "index.html", gin.H{"rooms": rooms})
 }
 
 func CreateRoom(c *gin.Context) {
-	rooms, _ := c.Get("rooms")
 	name := c.PostForm("name")
 	id := len(rooms) + 1
 
 	room := room.NewRoom(id, name)
-	rooms = append(rooms, room)
+	rooms = append(rooms, *room)
 
-	c.Redirect(300, "/")
+	c.Redirect(301, "/")
 }
 
 func main() {
@@ -38,7 +35,7 @@ func main() {
 
 	r.GET("/", Index)
 
-	r.POST("/room", )
+	r.POST("/room", CreateRoom)
 
 	r.Run()
 
