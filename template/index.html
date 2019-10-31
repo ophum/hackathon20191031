@@ -6,5 +6,12 @@
 </head>
 <body>
 	<h1>test</h1>
+	<ul>
+		{{ range .rooms }}
+		<li>
+			{{ .Name }}
+		</li>
+		{{ end }}
+	</ul>
 </body>
 </html>
