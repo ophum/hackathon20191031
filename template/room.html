@@ -16,8 +16,7 @@
 	</form>
     <ul>
         {{range .room.Messages}}
-        <li>{{.RoomId}}</li>
-        <li>{{.Message}} </li>
+        <li>{{.Name}}:{{.Message}} </li>
         {{end}}
     </ul>
 </body>
