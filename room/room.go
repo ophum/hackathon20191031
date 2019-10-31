@@ -14,6 +14,12 @@ func NewRoom(id int, name string) *Room {
 	return &Room{
 		Id: id,
 		Name: name,
-		Messages: []message.Message{},
+		Messages: []message.Message{
+			message.Message{
+				RoomId: 1,
+				Message: "hello",
+				Date: "1234",
+			  },
+		},
 	}
 }

@@ -14,7 +14,7 @@
 	<ul>
 		{{ range .rooms }}
 		<li>
-			{{ .Name }}
+			<a href="/room/{{.Id}}">{{ .Name }}</a>
 		</li>
 		{{ end }}
 	</ul>
