@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/ophum/hackathon20191031/room"
 	"strconv"
+	"fmt"
 )
 
 var rooms []room.Room
@@ -25,8 +26,6 @@ func CreateRoom(c *gin.Context) {
 	id := len(rooms) + 1
 
 	room := room.NewRoom(id, name)
-	m := message.NewMessage(1, "hello", "20291")
-	room.Messages = append(room.Messages, *m)
 	rooms = append(rooms, *room)
 
 	c.Redirect(301, "/")
@@ -39,7 +38,16 @@ func RoomIndex(c *gin.Context)  {
 	c.HTML(200, "room.html", gin.H{"room": room})
 }
 
-
+func SendMessage(c *gin.Context) {
+	i := c.PostForm("id")
+	id, _ := strconv.ParseInt(i,10,32)
+	name := c.PostForm("name")
+	mes := c.PostForm("message")
+	date := ""
+	m := message.NewMessage(int(id), name, mes, date)
+	rooms[id-1].Messages = append(rooms[id-1].Messages, *m)
+	c.Redirect(301, fmt.Sprintf("/room/%d", id))
+}
 
 func main() {
 	r := gin.Default()
@@ -49,6 +57,7 @@ func main() {
 	r.GET("/", Index)
 	r.GET("/room/:id", RoomIndex)
 	r.POST("/room", CreateRoom)
+	r.POST("/send", SendMessage)
 
 	r.Run(":8000")
 
